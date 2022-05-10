@@ -1,28 +1,38 @@
 export default class Character {
   constructor(name, type) {
-    this.name = name;
-    this.type = type;
-    this.health = 100;
-    this.level = 1;
+    const typeCharacter = [
+      'Bowman',
+      'Swordsman',
+      'Magician',
+      'Undead',
+      'Zombie',
+      'Daemon',
+    ];
 
-    const parametersCharacter = {
-      Bowman: '25/25',
-      Swordsman: '40/10',
-      Magician: '10/40',
-      Undead: '25/25',
-      Zombie: '40/10',
-      Daemon: '10/40',
-    };
-
-    if (name.length < 2 || name.length > 10) {
+    if (name.length >= 2 && name.length <= 10) {
+      this.name = name;
+    } else {
       throw new Error('Имя должно иметь длинну от 2 до 10 знаков');
     }
 
-    if ((type in parametersCharacter)) {
-      this.attack = Number(parametersCharacter[type].split('/')[0]);
-      this.defence = Number(parametersCharacter[type].split('/')[1]);
+    if (typeCharacter.includes(type) && typeof type === 'string') {
+      this.type = type;
     } else {
-      throw new Error('Неправильный тип');
+      throw new Error('Выбран несуществующий персонаж');
+    }
+
+    this.health = 100;
+    this.level = 1;
+  }
+
+  levelUp() {
+    if (this.health > 0) {
+      this.level += 1;
+      this.health = 100;
+      this.attack += (0.2 * this.attack);
+      this.defence = this.attack + (0.2 * this.attack);
+    } else {
+      throw new Error('Нельзя повысить левел умершего');
     }
   }
 

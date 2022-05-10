@@ -1,4 +1,4 @@
-test('test', () => {
-  const result = 5;
-  expect(result).toBe(5);
+test('test run jest', () => {
+  const result = 4;
+  expect(result).toBe(4);
 });
